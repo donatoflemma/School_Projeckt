@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <script src="./main1.js"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=segmanet@400&display=swap" rel="stylesheet">
+    <title>Taschenrechner</title>
+</head>
+<body>
+    
+    <div id="Conteiner">
+        <div id="Display">
+            <p id="result_id"></p>
+        </div>
+
+        <div class="row">
+            <button id="MC" class="memory" onclick="memory ('MC')">MC</button>
+            <button id="MR" class="memory" onclick="memory ('MR')">MR</button>
+            <button id="M+" class="memory" onclick="memory ('M+')">M+</button>
+            <button id="M-" class="memory" onclick="memory ('M-')">M-</button>
+            <button id="MS" class="memory" onclick="memory ('MS')">MS</button>
+        </div>
+
+        <div class="row">
+            <button class="op" id="%" onclick="operator('%')">%</button>
+            <button class="op" id="sqrt" onclick="sqrt ()">sqrt</button>
+            <button class="op" id="²x" onclick="power ('²x')">²x</button>
+            <button class="op" id="1/x" onclick="invert ('1/x')">1/x</button>
+        </div>
+
+        <div class="row">
+            <button class="delet" id="CE" onclick=" clear_Entry('CE')">CE</button>
+            <button class="delet" id="C" onclick=" cleare('C')">C</button>
+            <button class="delet" id="delet" onclick="delet ('delet')">delet</button>
+            <button class="op" id="/" onclick="operator ('/')">/</button>
+        </div>
+
+        <div class="row">
+            <button id="7" onclick="number ('7')">7</button>
+            <button id="8" onclick="number ('8')">8</button>
+            <button id="9" onclick="number('9')">9</button>
+            <button class="op" id="*" onclick="operator ('*')">*</button>
+        </div>
+
+        <div class="row">
+            <button id="4" onclick="number ('4')">4</button>
+            <button id="5" onclick="number ('5')">5</button>
+            <button id="6" onclick="number ('6')">6</button>
+            <button class="op" id="-" onclick="operator ('-')">-</button>
+        </div>
+
+        <div class="row">
+            <button id="1" onclick="number ('1')">1</button>
+            <button id="2" onclick="number ('2')">2</button>
+            <button id="3" onclick="number ('3')">3</button>
+            <button class="op" id="+" onclick="operator ('+')">+</button>
+        </div>
+
+        <div class="row">
+            <button class="op" id="+-" onclick="invert_Signt ('+-')">+ -</button>
+            <button  id="0" onclick="number('0')">0</button>
+            <button id="." onclick="number ('.')">.</button>
+            <button class="op" id="=" onclick=" equal()">=</button>
+        </div>
+
+    </div>
+</body>
+</html>
