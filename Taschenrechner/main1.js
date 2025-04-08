@@ -192,7 +192,7 @@ function delet(){
         numero_a = list_a.join("");
         document.getElementById("result_id").innerHTML = numero_a;
         console.log("a:" + numero_a + " op:" + operatore + " b:" + numero_b);
-        //console.log(list_a);
+        console.log(list_a);
     }
     else if (boolean_a && !boolean_b){
          operatore = 0;
