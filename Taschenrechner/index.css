@@ -15,8 +15,6 @@ body {
     font-weight: normal;
     font-style: normal;
   }
-  
-  
 #Conteiner{
     background-color: rgb(128, 130, 132);
     height: 370px;
@@ -34,13 +32,9 @@ body {
     border: solid;
     border-radius: 15%;
     margin-top: 8px;
-    
     display: flex;
     align-items: center;
     justify-content: end;
-    
-    
-      
 }
 .row{
     display: flex;
@@ -57,21 +51,17 @@ button{
 p{
     font-weight: 500;
     font-size: 40px;
-   
-    
 }
 .memory{
     background-color: rgb(14, 14, 96);
     font-size: medium;
     border-radius: 100%;
     color: aliceblue;
-   
 }
 .delet{
     background-color: rgb(208, 104, 24);
     font-size:12px;
     color: rgb(23, 24, 24);
-    
 }
 .op{
     background-color: rgb(64, 53, 53);

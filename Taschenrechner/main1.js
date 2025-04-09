@@ -108,7 +108,6 @@ function equal(){
     operatore = 0;
     boolean_b = false;
     boolean_operatore = false;
-    // controllare se é giusto 
     boolean_a=true;
     console.log("a: " + numero_a + "  op:"+ operatore +  " b: " + numero_b);
 
