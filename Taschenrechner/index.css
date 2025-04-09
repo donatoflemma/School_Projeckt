@@ -48,6 +48,10 @@ button{
     margin-bottom: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.569), 0 2px 4px rgba(0,0,0,0.23);
 }
+button:hover{
+    cursor: pointer;
+    background-color: rgb(132, 186, 232);
+}
 p{
     font-weight: 500;
     font-size: 40px;
@@ -58,13 +62,22 @@ p{
     border-radius: 100%;
     color: aliceblue;
 }
+.memory:hover{
+    background-color: rgb(78, 78, 178);
+}
 .delet{
     background-color: rgb(208, 104, 24);
     font-size:12px;
     color: rgb(23, 24, 24);
 }
+.delet:hover{
+    background-color: rgb(206, 154, 115);
+}
 .op{
     background-color: rgb(64, 53, 53);
     color: rgb(254, 254, 254);
     font-size:10px;
+}
+.op:hover{
+    background-color: rgb(124, 116, 116);
 }
