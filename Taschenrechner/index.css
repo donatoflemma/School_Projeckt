@@ -5,12 +5,22 @@ body {
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat; 
-    
+    font-family: "digital_7", sans-serif;
 }
+@font-face {
+    font-family: "digital_7";
+    src: url("./font/digital-7-mono-italic.ttf") format("truetype"),
+         url("./font/digital-7-mono.ttf") format("truetype");
+         
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  
 #Conteiner{
     background-color: rgb(128, 130, 132);
-    height: 350px;
-    width: 290px;
+    height: 370px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -24,7 +34,7 @@ body {
     border: solid;
     border-radius: 15%;
     margin-top: 8px;
-    font-family: 'SegmaNet', sans-serif;
+    
     display: flex;
     align-items: center;
     justify-content: end;
@@ -45,8 +55,8 @@ button{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.569), 0 2px 4px rgba(0,0,0,0.23);
 }
 p{
-    font-weight: 800;
-    font-size: 30px;
+    font-weight: 500;
+    font-size: 40px;
    
     
 }

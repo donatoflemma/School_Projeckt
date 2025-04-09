@@ -187,7 +187,7 @@ function cleare(){
     console.log("a:" + numero_a + " op:" + operatore + " b:" + numero_b);
 }
 function delet(){
-    if (!boolean_a && !boolean_operatore){
+    if (boolean_a && !boolean_operatore){
         list_a.pop(); 
         numero_a = list_a.join("");
         document.getElementById("result_id").innerHTML = numero_a;
