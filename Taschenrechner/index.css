@@ -49,7 +49,7 @@ button{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.569), 0 2px 4px rgba(0,0,0,0.23);
 }
 button:hover{
-    background-color: rgb(97, 145, 186);
+    background-color:rgb(159, 186, 210);
 }
 p{
     font-weight: 500;
@@ -62,7 +62,7 @@ p{
     color: aliceblue;
 }
 .memory:hover{
-    background-color: rgb(80, 80, 206);
+    background-color: rgb(34, 34, 120);
     cursor: pointer ;
 }
 .delet{
@@ -71,7 +71,7 @@ p{
     color: rgb(23, 24, 24);
 }
 .delet:hover{
-    background-color: rgb(202, 148, 107);
+    background-color: rgb(210, 127, 63);
     cursor: pointer ;
 }
 .op{
@@ -80,6 +80,6 @@ p{
     font-size:10px;
 }
 .op:hover{
-    background-color: rgb(157, 147, 147);
+    background-color: rgb(88, 77, 77);
     cursor: pointer;
 }
