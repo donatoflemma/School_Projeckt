@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.85.2/dist/phaser-arcade-physics.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <script type="text/javascript">
+        var config = {
+        type: Phaser.AUTO,
+        width: 1200,
+        height: 550,
+        //#####
+        physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
+    //#### fine di physics
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+    var game = new Phaser.Game(config);
+    var Bars ;
+    var Barili ;
+    
+    
+    function preload () 
+        {
+            this.load.image('background', '../img/back_donkey.png');
+            this.load.image('Bar', '../img2/Bar.png');
+            //this.load.image('Walk', '../img2/WalkLuigi.png');
+            this.load.image('Kong_barili', '../img2/Kong_barili.png');
+            this.load.image('Roll_on', '../img2/Barili.png');
+            this.load.spritesheet('Walk',
+            '../img2/WalkLuigi.png',
+            {frameWidth:30, frameHeight:70});
+        }
+       
+    function create ()
+        {this.add.image(400, 300, 'background');
+        //this.add.image(400, 282, 'Walk');//this.add.image(400, 446, 'Walk');
+        this.add.image(830, 55, 'Kong_barili');
+        //this.add.image(410, 511, 'Roll_on');//this.add.image(410, 510, 'Roll_on');
+
+        Barili = this.physics.add.staticGroup();
+        Barili.create(410, 511, 'Roll_on');
+        
+        Bars = this.physics.add.staticGroup();
+        Bars.create(120, 555, 'Bar');
+        Bars.create(340, 555, 'Bar');
+        Bars.create(560, 555, 'Bar');
+        Bars.create(780, 555, 'Bar');
+        Bars.create(1000, 555, 'Bar');
+        Bars.create(1220, 555, 'Bar');
+
+        Bars.create(120, 390, 'Bar');
+        Bars.create(340, 390, 'Bar');
+        //Bars.create(560, 350, 'Bar');
+        //Bars.create(780, 350, 'Bar');
+        Bars.create(1000, 390, 'Bar');
+        Bars.create(1220, 390, 'Bar');
+
+        Bars.create(120, 230, 'Bar');
+        Bars.create(340, 230, 'Bar');
+        Bars.create(560, 230, 'Bar');
+        Bars.create(780, 230, 'Bar');
+        Bars.create(1000, 230, 'Bar');
+        Bars.create(1220, 230, 'Bar');
+
+        Bars.create(120, 90, 'Bar');
+        //Bars.create(340, 525, 'Bar');
+        //Bars.create(560, 525, 'Bar');
+        Bars.create(780, 105, 'Bar');
+        Bars.create(1000, 105, 'Bar');
+        Bars.create(1220, 105, 'Bar');
+        //############################################### PLAYER #####################################
+        player = this.physics.add.sprite(100, 450, 'Walk');
+        player.setBounce(0.2);
+        player.setCollideWorldBounds(true);
+
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('Walk', { start: 4, end: 6 }), 
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'turn',
+            frames: [ { key: 'Walk', frame: 3 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('Walk', { start: 0, end: 2 }),// 0 2
+            frameRate: 10,
+            repeat: -1
+           
+        });
+        //######################### CHIAMATA DELLA COLLISIONE PER FAR STARE IL PERSONAGGIO SUL TERRENO ####################
+        this.physics.add.collider(player, Bars);
+        this.physics.add.collider(player, Barili);
+        cursors = this.input.keyboard.createCursorKeys();
+        }
+    function update ()
+     {
+        if (cursors.left.isDown)
+            {
+            player.setVelocityX(-160);
+
+            player.anims.play('left', true);
+           
+            }
+            else if (cursors.right.isDown)
+            {
+            player.setVelocityX(160);
+
+            player.anims.play('right', true);
+            }
+            else
+            {
+            player.setVelocityX(0);
+
+            player.anims.play('turn');
+            }
+
+            if (cursors.up.isDown && player.body.touching.down)
+            {
+            player.setVelocityY(-230);
+            }
+     }
+
+    
+    </script>
+
+</body>
+</html>

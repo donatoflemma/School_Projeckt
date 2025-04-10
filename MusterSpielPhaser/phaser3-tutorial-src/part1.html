@@ -1,0 +1,175 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Making your first Phaser 3 Game - Part 1</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    var config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        //#####
+        physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
+    //#### fine di physics
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+        // caricamento delle cose essenziali che sevono per il gioco 
+        // come immagini per esempio
+        this.load.image('sky','assets/sky.png');
+        this.load.image('ground','assets/platform.png');
+        this.load.image('star','assets/star.png');
+        this.load.image('bomb','assets/bomb.png');
+        // occhio al personaggiko perche stava chiamato con this.load.image e non !!!!spritesheet!!! 
+        this.load.spritesheet('dude',
+            'assets/dude.png',
+            {frameWidth:32, frameHeight:48}); // a quanto pare serve per impostare la grandezza e l´altezza del personaggio , 
+            // gli altri sicuramente stanno in default
+        /*Un sprite sheet è un'immagine che contiene una serie di sprite 
+        (cioè piccole immagini o animazioni) disposte in un'unica griglia. 
+        È molto utilizzato nei videogiochi per gestire animazioni e grafica in modo efficiente.*/
+        }
+    var platforms; // ora chiamiamo una funzione che daremo come immagine il gruond cioe le basette 
+    // dove corre il giocatore, é tipo rect per pygame , in modo da implementare le leggi fisiche all´ogetto
+
+
+
+    function create ()
+    {   // qua si richiamano le immadini come .draw in pygame
+        //If you put the star image first it will be covered-up by the sky image. 
+        this.add.image(400, 300, 'sky');
+        // dichiariamo platform che sara un insieme di ogetti physics con proprieta statiche date da .sataticGroup();
+        platforms = this.physics.add.staticGroup();
+        // ora possiamo creare tutte le piattaforme che vogliamo
+        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        // refreshBody(); ci serve per aggiornare l´ogetto quando viene cambiato qualcosa delle sue proprieta
+        // in questo caso la dimensione con .setScale(2)
+        platforms.create(600, 400, 'ground');
+        platforms.create(50, 250, 'ground');
+        platforms.create(750, 220, 'ground');
+
+        this.add.image(400, 100, 'star');// i valori sono la x e la y , quindi le coordinate 
+        this.add.image(400, 150, 'bomb');
+        /*this.add.image(400, 300, 'dude');*/
+        /*Hint: You can use setOrigin to change this.
+         For example the code: this.add.image(0, 0, 'sky').setOrigin(0, 0) 
+         would reset the drawing position of the image to the top-left.
+          In Phaser 2 this was achieved via the anchor property but in Phaser 3 
+          it's the originX and originY properties instead.*/
+
+        /*Dando una rapida occhiata al codice, si nota una chiamata a this.physics. 
+        Questo significa che stiamo usando il sistema Arcade Physics, 
+        ma prima di poterlo fare dobbiamo aggiungerlo alla nostra configurazione 
+        di gioco per dire a Phaser che il gioco lo richiede. Aggiorniamo quindi la 
+        configurazione per includere il supporto alla fisica. Ecco la configurazione di gioco modificata*/
+        // la configurazione sta fatta sopra contrassengnata con #####
+
+        //##################### CREAZIONE DEL PERSONAGGIO #################################
+        // ovviamente sempre dentro create ();
+           // Creazione del personaggio con fisica, sprite perche é un susseguirsi 
+           // di tanti personaggi per il movimento 
+        player = this.physics.add.sprite(100, 450, 'dude');
+
+        // Imposta il rimbalzo del giocatore
+        player.setBounce(0.2);
+        /*  Valori bassi (es. 0.2) → L'oggetto rimbalza poco.
+            Valori alti (es. 1) → L'oggetto rimbalza completamente senza perdere energia.
+            Valori > 1 → L'oggetto potrebbe rimbalzare ancora più in alto rispetto a prima (effetto esagerato).*/
+
+        // Il giocatore non può uscire dai limiti dello schermo
+        player.setCollideWorldBounds(true);
+
+        // Creazione delle animazioni
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'turn',
+            frames: [ { key: 'dude', frame: 4 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'right',//Assegna un nome all'animazione ('left'). Questo nome sarà usato per riprodurla.
+            frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+            /*Genera i frame dell'animazione usando lo sprite sheet "dude".
+            Usa i frame da 0 a 3, che corrispondono alle immagini 
+            del personaggio mentre cammina a sinistra.*/
+            
+            frameRate: 10,
+            //Imposta la velocità dell'animazione a 10 frame per secondo (fps).
+            //Un valore più alto rende l'animazione più veloce, uno più basso la rallenta.
+            repeat: -1
+            /*L'animazione si ripete all'infinito (-1 significa "loop continuo").
+            Se metti repeat: 0, l'animazione si ripeterà solo una volta.*/
+        });
+        //######################### CHIAMATA DELLA COLLISIONE PER FAR STARE IL PERSONAGGIO SUL TERRENO ####################
+        this.physics.add.collider(player, platforms); // Come colliderect di python
+        //cursors = this.input.keyboard.createCursorKeys();  chiamata alle kays 
+        cursors = this.input.keyboard.createCursorKeys();
+        // i comandi di questa valeu vengono inseriti nell´update 
+    }
+   
+
+    function update ()
+    {
+        if (cursors.left.isDown)
+            {
+            player.setVelocityX(-160);
+
+            player.anims.play('left', true);
+            //anims.play('left') → riproduce l’animazione chiamata 'left'
+            //true → dice a Phaser di ripetere (loop) l’animazione
+            }
+            else if (cursors.right.isDown)
+            {
+            player.setVelocityX(160);
+
+            player.anims.play('right', true);
+            }
+            else
+            {
+            player.setVelocityX(0);
+
+            player.anims.play('turn');
+            }
+
+            if (cursors.up.isDown && player.body.touching.down)
+            {
+            player.setVelocityY(-330);
+            }
+    }
+
+</script>
+
+</body>
+</html>
