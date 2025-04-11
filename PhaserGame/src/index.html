@@ -32,68 +32,228 @@
         }
     };
 
-    var game = new Phaser.Game(config);
-    var Bars ;
-    var Barili ;
+    let game = new Phaser.Game(config);
+    let Bars ;
+    let Scale;
+    let Barili ;
+    let player;
+    let Scala_up = false;
+    let x = 900;
+    let y = 130;
+    let velocity = -300;
     
     
     function preload () 
         {
             this.load.image('background', '../img/back_donkey.png');
             this.load.image('Bar', '../img2/Bar.png');
-            //this.load.image('Walk', '../img2/WalkLuigi.png');
-            this.load.image('Kong_barili', '../img2/Kong_barili.png');
-            this.load.image('Roll_on', '../img2/Barili.png');
+            this.load.image('Scala', '../img2/Scala.png');
+            
+            //########################## Spritesheet #################### #
+            // LUIGI
             this.load.spritesheet('Walk',
             '../img2/WalkLuigi.png',
-            {frameWidth:30, frameHeight:70});
+            {frameWidth:51, frameHeight:53});
+
+            this.load.spritesheet('jump_link',
+            '../img2/Jump_link.png',
+            {frameWidth:51, frameHeight:53});
+
+            this.load.spritesheet('jump_right',
+            '../img2/Jump_right.png',
+            {frameWidth:51, frameHeight:53});
+
+            // Barili
+            this.load.spritesheet('Roll_on',
+            '../img2/Barili.png',
+            {frameWidth:29, frameHeight:30});
+            // KONG
+            this.load.spritesheet('Kong',
+            '../img2/Kong.png',
+            {frameWidth:93.8, frameHeight:120});
+
+            //this.load.spritesheet('Kong2',
+            //'../img2/Kong2.png',
+            //{frameWidth:100, frameHeight:105});
+            // AMICI
+            this.load.spritesheet('Amici1',
+            '../img2/AmiciDegliSbirri.png',
+            {frameWidth:55, frameHeight:50});
+
+            this.load.spritesheet('Amici2',
+            '../img2/AmiciDegliSbirri.png',
+            {frameWidth:55, frameHeight:50});
+            // PRINCIPESSA
+            this.load.spritesheet('Principessa',
+            '../img2/Principessa.png',
+            {frameWidth:45, frameHeight:40});
         }
        
     function create ()
         {this.add.image(400, 300, 'background');
-        //this.add.image(400, 282, 'Walk');//this.add.image(400, 446, 'Walk');
-        this.add.image(830, 55, 'Kong_barili');
-        //this.add.image(410, 511, 'Roll_on');//this.add.image(410, 510, 'Roll_on');
+        //this.add.image(950, 122, 'Kong2');
+       //this.add.image(440, 100, 'prova');
+        //this.add.image(519, 26, 'Amici');
+        //this.add.image(730, 26, 'Amici');
+        //this.add.image(900, 480, 'Scala');
+        //this.add.image(200, 358, 'Scala');
+        //this.add.image(1000, 236, 'Scala');
+        //this.add.image(500, 236, 'Scala');
 
-        Barili = this.physics.add.staticGroup();
-        Barili.create(410, 511, 'Roll_on');
+        //this.add.image(100, 114, 'Scala');
+        
+        Scale = this.physics.add.staticGroup();
+        Scale.create(910,480, 'Scala');
+        Scale.create(140,358, 'Scala');
+        Scale.create(1000,236, 'Scala');
+        Scale.create(500,236, 'Scala');
+        Scale.create(140,114, 'Scala');
         
         Bars = this.physics.add.staticGroup();
-        Bars.create(120, 555, 'Bar');
-        Bars.create(340, 555, 'Bar');
-        Bars.create(560, 555, 'Bar');
-        Bars.create(780, 555, 'Bar');
-        Bars.create(1000, 555, 'Bar');
-        Bars.create(1220, 555, 'Bar');
+        //for (let i = 0;i<12;i++){
+        //    Bars.create((62 + (118 * i)), 542, 'Bar');
+        //}
+        Bars.create((62 + (118 * 0)), 542, 'Bar');
+        Bars.create((62 + (118 * 1)), 542, 'Bar');
+        Bars.create((62 + (118 * 2)), 542, 'Bar');
+        Bars.create((62 + (118 * 3)), 542, 'Bar');
+        Bars.create((62 + (118 * 4)), 542, 'Bar');
+        Bars.create((62 + (118 * 5)), 542, 'Bar');
+        Bars.create((62 + (118 * 6)), 542, 'Bar');
+        Bars.create((62 + (118 * 7)), 542, 'Bar');
+        Bars.create((62 + (118 * 8)), 542, 'Bar');
+        Bars.create((62 + (118 * 9)), 542, 'Bar');
+        Bars.create((62 + (118 * 10)), 542, 'Bar');
 
-        Bars.create(120, 390, 'Bar');
-        Bars.create(340, 390, 'Bar');
-        //Bars.create(560, 350, 'Bar');
-        //Bars.create(780, 350, 'Bar');
-        Bars.create(1000, 390, 'Bar');
-        Bars.create(1220, 390, 'Bar');
+        //for (let i = 0;i<12;i++){
+        //    Bars.create((62 + (118 * i)), 420, 'Bar');
+        //}
+        Bars.create((62 + (118 * 0)), 420, 'Bar');
+        Bars.create((62 + (118 * 1)), 420, 'Bar');
+        Bars.create((62 + (118 * 2)), 420, 'Bar');
+        Bars.create((62 + (118 * 3)), 420, 'Bar');
+        Bars.create((62 + (118 * 4)), 420, 'Bar');
+        Bars.create((62 + (118 * 5)), 420, 'Bar');
+        Bars.create((62 + (118 * 6)), 420, 'Bar');
+        Bars.create((0 + (118 * 7)), 420, 'Bar');
+        Bars.create((62 + (118 * 8)), 420, 'Bar');
+        Bars.create((62 + (118 * 9)), 420, 'Bar');
+        Bars.create((62 + (118 * 10)), 420, 'Bar');
+        //for (let i = 0;i<12;i++){
+        //    Bars.create((62 + (118 * i)), 298, 'Bar');
+        //}
+        Bars.create((62 + (118 * 0)), 298, 'Bar');
+        Bars.create((122 + (118 * 1)), 298, 'Bar');
+        Bars.create((62 + (118 * 2)), 298, 'Bar');
+        Bars.create((62 + (118 * 3)), 298, 'Bar');
+        Bars.create((62 + (118 * 4)), 298, 'Bar');
+        Bars.create((62 + (118 * 5)), 298, 'Bar');
+        Bars.create((62 + (118 * 6)), 298, 'Bar');
+        Bars.create((62 + (118 * 7)), 298, 'Bar');
+        Bars.create((62 + (118 * 8)), 298, 'Bar');
+        Bars.create((62 + (118 * 9)), 298, 'Bar');
+        Bars.create((62 + (118 * 10)), 298, 'Bar');
+        //for (let i = 0;i<12;i++){
+        //    Bars.create((62 + (118 * i)), 176, 'Bar');
+        //}
+        Bars.create((62 + (118 * 0)), 176, 'Bar');
+        Bars.create((62 + (118 * 1)), 176, 'Bar');
+        Bars.create((62 + (118 * 2)), 176, 'Bar');
+        Bars.create((62 + (118 * 3)), 176, 'Bar');
+        Bars.create((122 + (118 * 4)), 176, 'Bar');
+        Bars.create((62 + (118 * 5)), 176, 'Bar');
+        Bars.create((62 + (118 * 6)), 176, 'Bar');
+        Bars.create((62 + (118 * 7)), 176, 'Bar');
+        Bars.create((62 + (118 * 8)), 176, 'Bar');
+        Bars.create((62 + (118 * 9)), 176, 'Bar');
+        Bars.create((62 + (118 * 10)), 176, 'Bar');
+        /////////77/////////////////////////////////////////////////////////////////////
+        Bars.create(62, 60, 'Bar');
+        Bars.create(562, 60, 'Bar');
+        Bars.create(680, 60, 'Bar');
+        Bars.create(982, 128, 'Bar');
+        Bars.create(1149, 128, 'Bar');
+        
 
-        Bars.create(120, 230, 'Bar');
-        Bars.create(340, 230, 'Bar');
-        Bars.create(560, 230, 'Bar');
-        Bars.create(780, 230, 'Bar');
-        Bars.create(1000, 230, 'Bar');
-        Bars.create(1220, 230, 'Bar');
-
-        Bars.create(120, 90, 'Bar');
-        //Bars.create(340, 525, 'Bar');
-        //Bars.create(560, 525, 'Bar');
-        Bars.create(780, 105, 'Bar');
-        Bars.create(1000, 105, 'Bar');
-        Bars.create(1220, 105, 'Bar');
+        
         //############################################### PLAYER #####################################
-        player = this.physics.add.sprite(100, 450, 'Walk');
+        player = this.physics.add.sprite(80, 500, 'Walk');
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
+        //############################################### BARILI #####################################
+       
+        Barili = this.physics.add.sprite(x, y, 'Roll_on');
+        Barili.setBounce(0.2);
+        Barili.setCollideWorldBounds(true);
+        Barili.setVelocityX(velocity);
 
         this.anims.create({
+            key: 'barile_rotola', // nome dell'animazione
+            frames: this.anims.generateFrameNumbers('Roll_on', { start: 0, end: 3 }), // usa il nome dello spritesheet
+            frameRate: 10,
+            repeat: -1 // -1 = loop infinito
+        });
+       
+        
+        // avvia animazione
+        Barili.play('barile_rotola');
+        
+        //############################################### KONG #####################################
+        Kong = this.physics.add.sprite(1062, 18, 'Kong');
+        Kong.setBounce(0.2);
+        Kong.setCollideWorldBounds(true);
+
+        this.anims.create({
+            key: 'Kong', // nome dell'animazione
+            frames: this.anims.generateFrameNumbers('Kong', { start: 0, end: 7 }), // usa il nome dello spritesheet
+            frameRate: 5,
+            repeat: -1 // -1 = loop infinito
+        });
+        // avvia animazione
+        Kong.play('Kong');
+         //############################################### Principessa #####################################
+        Principessa = this.physics.add.sprite(630, 18, 'Principessa');
+        Principessa.setBounce(0.2);
+        Principessa.setCollideWorldBounds(true);
+
+        this.anims.create({
+            key: 'Principessa', // nome dell'animazione
+            frames: this.anims.generateFrameNumbers('Principessa', { start: 0, end: 10 }), // usa il nome dello spritesheet
+            frameRate: 5,
+            repeat: -1 // -1 = loop infinito
+        });
+        // avvia animazione
+        Principessa.play('Principessa');
+         //############################################### Amici1 #####################################
+         Amici1 = this.physics.add.sprite(523, 26, 'Amici1');
+         Amici1.setBounce(0.2);
+         Amici1.setCollideWorldBounds(true);
+
+        this.anims.create({
+            key: 'Amici1', // nome dell'animazione
+            frames: this.anims.generateFrameNumbers('Amici1', { start: 0, end: 5 }), // usa il nome dello spritesheet
+            frameRate: 5,
+            repeat: -1 // -1 = loop infinito
+        });
+        // avvia animazione
+        Amici1.play('Amici1');
+        //############################################### Amici2 #####################################
+        Amici2 = this.physics.add.sprite(718, 26, 'Amici2');
+        Amici2.setBounce(0.2);
+        Amici2.setCollideWorldBounds(true);
+
+        this.anims.create({
+            key: 'Amici2', // nome dell'animazione
+            frames: this.anims.generateFrameNumbers('Amici2', { start: 0, end: 5 }), // usa il nome dello spritesheet
+            frameRate: 5,
+            repeat: -1 // -1 = loop infinito
+        });
+        // avvia animazione
+        Amici2.play('Amici2');
+        //############################################### ANIMS.Player #####################################
+        this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers('Walk', { start: 4, end: 6 }), 
+            frames: this.anims.generateFrameNumbers('Walk', { start: 0, end: 2 }),//4  6 
             frameRate: 10,
             repeat: -1
         });
@@ -106,26 +266,56 @@
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('Walk', { start: 0, end: 2 }),// 0 2
+            frames: this.anims.generateFrameNumbers('Walk', { start: 4, end: 6 }),// 0 2
             frameRate: 10,
             repeat: -1
            
         });
         //######################### CHIAMATA DELLA COLLISIONE PER FAR STARE IL PERSONAGGIO SUL TERRENO ####################
+        // COLLISION BAR 
         this.physics.add.collider(player, Bars);
+        this.physics.add.collider(Amici1, Bars);
+        this.physics.add.collider(Amici2, Bars);
+        this.physics.add.collider(Barili, Bars);
+        this.physics.add.collider(Principessa, Bars);
+        this.physics.add.collider(Kong, Bars);
+        // COLLISION PLAYER
         this.physics.add.collider(player, Barili);
-        cursors = this.input.keyboard.createCursorKeys();
+        this.physics.add.collider(player, Kong);
+        this.physics.add.overlap(player, Scale, Scala_in, null, this); // Meglio perche la scala non deve bloccare il passaggio 
+
+        function Scala_in(player,Scale){
+            Scala_up = true;
+            player.body.allowGravity = false;
+            player.setVelocityY(0); // ferma la caduta
+        }
+
+        if (Scala_up && !player.body.touching.none && !player.body.embedded) {
+            Scala_up = false;
+            player.body.allowGravity = true;
+        }
+        
+        
+        
+
+        
+        this.cursors = this.input.keyboard.createCursorKeys();
         }
     function update ()
      {
-        if (cursors.left.isDown)
+        if (Barili.x < 0 || Barili.x > 1200) {
+            velocity = -velocity;
+            //Barili.setVelocityX(velocity); 
+            }   
+       
+        if (this.cursors.left.isDown)
             {
             player.setVelocityX(-160);
 
             player.anims.play('left', true);
            
             }
-            else if (cursors.right.isDown)
+            else if (this.cursors.right.isDown)
             {
             player.setVelocityX(160);
 
@@ -138,12 +328,25 @@
             player.anims.play('turn');
             }
 
-            if (cursors.up.isDown && player.body.touching.down)
+            if (this.cursors.up.isDown && player.body.touching.down)
             {
-            player.setVelocityY(-230);
+            player.setVelocityY(-170);
             }
-     }
 
+            if (Scala_up && this.cursors.up.isDown) {
+                player.setVelocityY(-100); // muovi verso l'alto
+            } else if (Scala_up && this.cursors.down.isDown) {
+                player.setVelocityY(100); // muovi verso il basso
+            } else if (Scala_up) {
+                player.setVelocityY(0);
+            }
+            if (Scala_up && !player.body.touching.none && !player.body.embedded) {
+            Scala_up = false;
+            player.body.allowGravity = true;
+            }
+            
+     }
+     
     
     </script>
 
