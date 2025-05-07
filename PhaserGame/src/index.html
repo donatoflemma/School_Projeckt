@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-
+//300
     <script type="text/javascript">
         var config = {
         type: Phaser.AUTO,
@@ -20,7 +20,7 @@
         physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 100 },
             debug: false
         }
     },
@@ -175,7 +175,7 @@
         Bars.create(1149, 128, 'Bar');
         
 
-        
+        //0.2
         //############################################### PLAYER #####################################
         player = this.physics.add.sprite(80, 500, 'Walk');
         player.setBounce(0.2);
