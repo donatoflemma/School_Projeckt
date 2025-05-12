@@ -20,7 +20,7 @@
         physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 100 },
+            gravity: { y: 300 },
             debug: false
         }
     },
@@ -40,7 +40,8 @@
     let Scala_up = false;
     let x = 900;
     let y = 130;
-    let velocity = -300;
+    let velocity = - 500;
+    
     
     
     function preload () 
@@ -178,14 +179,15 @@
         //0.2
         //############################################### PLAYER #####################################
         player = this.physics.add.sprite(80, 500, 'Walk');
-        player.setBounce(0.2);
+        player.setBounce(0);
         player.setCollideWorldBounds(true);
         //############################################### BARILI #####################################
        
         Barili = this.physics.add.sprite(x, y, 'Roll_on');
-        Barili.setBounce(0.2);
+        Barili.setBounce(0);
         Barili.setCollideWorldBounds(true);
-        Barili.setVelocityX(velocity);
+       Barili.setVelocityX(velocity);
+        
 
         this.anims.create({
             key: 'barile_rotola', // nome dell'animazione
@@ -206,7 +208,7 @@
         this.anims.create({
             key: 'Kong', // nome dell'animazione
             frames: this.anims.generateFrameNumbers('Kong', { start: 0, end: 7 }), // usa il nome dello spritesheet
-            frameRate: 5,
+            frameRate: 3,
             repeat: -1 // -1 = loop infinito
         });
         // avvia animazione
@@ -303,10 +305,15 @@
         }
     function update ()
      {
-        if (Barili.x < 0 || Barili.x > 1200) {
-            velocity = -velocity;
-            //Barili.setVelocityX(velocity); 
-            }   
+        if (Barili.x <= 20 && velocity < 0 ) {
+            velocity = - velocity;
+            Barili.setVelocityX(velocity); 
+            }
+        else if (Barili.x > 1185 && velocity > 0){
+            velocity = -velocity
+            Barili.setVelocityX(velocity);
+        }   
+        
        
         if (this.cursors.left.isDown)
             {

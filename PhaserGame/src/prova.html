@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.85.2/dist/phaser-arcade-physics.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+//300
+    <script type="text/javascript">
+        var config = {
+        type: Phaser.AUTO,
+        width: 1200,
+        height: 550,
+        //#####
+        physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: true
+        }
+    },
+    //#### fine di physics
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+    let game = new Phaser.Game(config);
+    let Bars ;
+    let Scale;
+    let Barili ;
+    
+    let Scala_up = false;
+    //let barileAlive = true;
+    //let x = 900;
+    //let y = 150;
+    //let velocity =  - 150;
+    
+    
+    
+    function preload () 
+        {
+            this.load.image('background', '../img/back_donkey.png');
+            this.load.image('Bar', '../img2/Bar.png');
+            this.load.image('Scala', '../img2/Scala.png');
+            
+            //########################## Spritesheet #################### #
+        // Barili
+            this.load.spritesheet('Roll_on',
+            '../img2/Barili.png',
+            {frameWidth:29, frameHeight:30});
+        }
+       
+    function create ()
+        {this.add.image(400, 300, 'background');
+        
+        
+        Scale = this.physics.add.staticGroup();
+        
+        Scale.create(910,480, );
+        Scale.create(140,358, );
+        Scale.create(1000,236, );
+        Scale.create(500,236, );
+        Scale.create(140,114, );
+        //Scale.body.setSize(1, 1);
+        Scale.children.iterate(function(scala) {
+        scala.body.setSize(20, 80);
+        scala.body.updateFromGameObject(); // aggiorna il body statico
+        });
+
+        Bars = this.physics.add.staticGroup();
+        
+        //for (let i = 0;i<12;i++){
+        //    Bars.create((62 + (118 * i)), 542, 'Bar');
+        //}
+        Bars.create((62 + (118 * 0)), 542, 'Bar');
+        Bars.create((62 + (118 * 1)), 542, 'Bar');
+        Bars.create((62 + (118 * 2)), 542, 'Bar');
+        Bars.create((62 + (118 * 3)), 542, 'Bar');
+        Bars.create((62 + (118 * 4)), 542, 'Bar');
+        Bars.create((62 + (118 * 5)), 542, 'Bar');
+        Bars.create((62 + (118 * 6)), 542, 'Bar');
+        Bars.create((62 + (118 * 7)), 542, 'Bar');
+        Bars.create((62 + (118 * 8)), 542, 'Bar');
+        Bars.create((62 + (118 * 9)), 542, 'Bar');
+        Bars.create((62 + (118 * 10)), 542, 'Bar');
+
+        //for (let i = 0;i<12;i++){
+        //    Bars.create((62 + (118 * i)), 420, 'Bar');
+        //}
+        Bars.create((62 + (118 * 0)), 420, 'Bar');
+        Bars.create((62 + (118 * 1)), 420, 'Bar');
+        Bars.create((62 + (118 * 2)), 420, 'Bar');
+        Bars.create((62 + (118 * 3)), 420, 'Bar');
+        Bars.create((62 + (118 * 4)), 420, 'Bar');
+        Bars.create((62 + (118 * 5)), 420, 'Bar');
+        Bars.create((62 + (118 * 6)), 420, 'Bar');
+        Bars.create((0 + (118 * 7)), 420, 'Bar');
+        Bars.create((62 + (118 * 8)), 420, 'Bar');
+        Bars.create((62 + (118 * 9)), 420, 'Bar');
+        Bars.create((62 + (118 * 10)), 420, 'Bar');
+        //for (let i = 0;i<12;i++){
+        //    Bars.create((62 + (118 * i)), 298, 'Bar');
+        //}
+        Bars.create((62 + (118 * 0)), 298, 'Bar');
+        Bars.create((122 + (118 * 1)), 298, 'Bar');
+        Bars.create((62 + (118 * 2)), 298, 'Bar');
+        Bars.create((62 + (118 * 3)), 298, 'Bar');
+        Bars.create((62 + (118 * 4)), 298, 'Bar');
+        Bars.create((62 + (118 * 5)), 298, 'Bar');
+        Bars.create((62 + (118 * 6)), 298, 'Bar');
+        Bars.create((62 + (118 * 7)), 298, 'Bar');
+        Bars.create((62 + (118 * 8)), 298, 'Bar');
+        Bars.create((62 + (118 * 9)), 298, 'Bar');
+        Bars.create((62 + (118 * 10)), 298, 'Bar');
+        //for (let i = 0;i<12;i++){
+        //    Bars.create((62 + (118 * i)), 176, 'Bar');
+        //}
+        Bars.create((62 + (118 * 0)), 176, 'Bar');
+        Bars.create((62 + (118 * 1)), 176, 'Bar');
+        Bars.create((62 + (118 * 2)), 176, 'Bar');
+        Bars.create((62 + (118 * 3)), 176, 'Bar');
+        Bars.create((122 + (118 * 4)), 176, 'Bar');
+        Bars.create((62 + (118 * 5)), 176, 'Bar');
+        Bars.create((62 + (118 * 6)), 176, 'Bar');
+        Bars.create((62 + (118 * 7)), 176, 'Bar');
+        Bars.create((62 + (118 * 8)), 176, 'Bar');
+        Bars.create((62 + (118 * 9)), 176, 'Bar');
+        Bars.create((62 + (118 * 10)), 176, 'Bar');
+        /////////77/////////////////////////////////////////////////////////////////////
+        Bars.create(62, 60, 'Bar');
+        Bars.create(562, 60, 'Bar');
+        Bars.create(680, 60, 'Bar');
+        Bars.create(982, 128, 'Bar');
+        Bars.create(1149, 128, 'Bar');
+        
+
+     
+        //############################################### BARILI #####################################
+        class Barili {
+            constructor (x ,y,spritesheet ,velocity){
+                this.x = x;
+                this.y = y;
+                this.spritesheet = spritesheet;
+                this.velocity = velocity;
+
+            }
+        
+        
+        }
+        function physic(name){
+                name = this.physics.add.sprite(x,y,spritesheet);
+                name.setBounce(0.2);
+                name.setCollideWorldBounds(true);
+                name.setVelocityX(velocity);
+        }
+
+          function  frame(img){
+                this.anims.create({
+                key: 'barile_rotola', // nome dell'animazione
+                frames: this.anims.generateFrameNumbers(img , { start: 0, end: 3 }), // usa il nome dello spritesheet
+                frameRate: 10,
+                repeat: -1 // -1 = loop infinito
+                });
+            }
+        let barile1 = new Barili(900,150,'Roll_on',-150);
+        physic(barile1);
+        frame('Roll_on');
+        barile1.play(barile1.spritesheet);
+        this.physics.add.collider(barile1, Bars);
+        //barile1 = this.physics.add.sprite(barile1.x, barile1.y, barile1.spritesheet);
+        //barile1.setBounce(0.2);
+        //barile1.setCollideWorldBounds(true);
+        //barile1.setVelocityX(barile1.velocity);
+
+
+       //if (barileAlive){
+        //Barili = this.physics.add.sprite(x, y, 'Roll_on');
+        //Barili.setBounce(0.2);
+        //Barili.setCollideWorldBounds(true);
+        //Barili.setVelocityX(velocity);
+        
+
+        //this.anims.create({
+        //    key: 'barile_rotola', // nome dell'animazione
+        //    frames: this.anims.generateFrameNumbers('Roll_on', { start: 0, end: 3 }), // usa il nome dello spritesheet
+        //    frameRate: 10,
+        //    repeat: -1 // -1 = loop infinito
+        //});
+       
+        
+        // avvia animazione
+       
+        //barile1.play('barile_rotola');
+        
+        //Barili.play('barile_rotola');
+        //this.physics.add.collider(barile1, Bars);
+
+       //}
+       
+ //######################### CHIAMATA DELLA COLLISIONE PER FAR STARE IL PERSONAGGIO SUL TERRENO ####################
+       
+      
+        //function Scala_in(player,Scale){
+        //    Scala_up = true;
+        //    player.body.allowGravity = false;
+        //    player.setVelocityY(0); // ferma la caduta
+        //}
+
+        //if (Scala_up && !player.body.touching.none && !player.body.embedded) {
+        //    Scala_up = false;
+        //    player.body.allowGravity = true;
+        // funzione per la caduta del barile 
+        //function Scala_in(Barili,Scale){
+
+        //    Barili.setVelocityX(- velocity);
+        //}
+        console.log(barile1.x);
+        console.log(barile1.y);
+        console.log(barile1.velocity);
+        console.log(barile1.spritesheet);
+        
+    }
+        
+//http://127.0.0.1:3000/PhaserGame/src/prova.html
+      
+    function update ()
+     {  //if (barileAlive){
+        if (barile1.x <= 20 && barile1.velocity < 0 || (barile1.x > 1185 && barile1.velocity > 0)) {
+            barile1.velocity =   - barile1.velocity;
+            barile1.setVelocityX(barile1.velocity);
+            //console.log("x: " + Barili.x);
+            //console.log("y: " + Barili.y); 
+            }
+            
+        //else if {
+        //    velocity = - velocity
+        //    Barili.setVelocityX(velocity);
+        //}   
+       
+        if ( barile1.body.blocked.down ){
+            barile1.setVelocityX(barile1.velocity);
+        }// x 18  y 517
+        if (barile1.x == 18 && barile1.y == 517){
+            //barileAlive = false;
+            barile1.x =900;
+            barile1.y = 150;
+            //console.log("ci siamo ")
+            //Barili.setVelocityX (velocity);
+
+        //    velocity == 0;
+        //    Barili.setVelocityX(velocity);
+        }
+     //}
+      
+        
+       
+            
+     }
+     
+    
+    </script>
+
+</body>
+</html>
