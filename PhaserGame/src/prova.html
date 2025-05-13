@@ -10,13 +10,13 @@
     </style>
 </head>
 <body>
-//300
+
     <script type="text/javascript">
         var config = {
         type: Phaser.AUTO,
         width: 1200,
         height: 550,
-        //#####
+        
         physics: {
         default: 'arcade',
         arcade: {
@@ -24,7 +24,7 @@
             debug: true
         }
     },
-    //#### fine di physics
+   
         scene: {
             preload: preload,
             create: create,
@@ -35,9 +35,10 @@
     let game = new Phaser.Game(config);
     let Bars ;
     let Scale;
-    let Barili ;
+    //let Barili ;
     
     let Scala_up = false;
+    let Barili_list = [];
     //let barileAlive = true;
     //let x = 900;
     //let y = 150;
@@ -143,38 +144,59 @@
         
 
      
-        //############################################### BARILI #####################################
+        //############################################### BARILI OOP#####################################
         class Barili {
-            constructor (x ,y,spritesheet ,velocity){
+            
+            constructor (scene,x ,y,spritesheet ,velocity){
+                this.scene= scene;
                 this.x = x;
                 this.y = y;
                 this.spritesheet = spritesheet;
                 this.velocity = velocity;
+                this.barileAlive = true;
 
-            }
+                // sto creando il costruttore dove ci stanno tutte queste implementazioni 
+                // lo sprite é la parte fisica del personaggio in generale 
+                // probabilmente é il quadrato che determila ma parte fisica 
+                this.sprite = this.scene.physics.add.sprite(this.x,this.y,this.spritesheet);
+                this.sprite.setBounce(0.2);
+                this.sprite.setCollideWorldBounds(true);
+                this.sprite.setVelocityX(this.velocity);
         
-        
-        }
-        function physic(name){
-                name = this.physics.add.sprite(x,y,spritesheet);
-                name.setBounce(0.2);
-                name.setCollideWorldBounds(true);
-                name.setVelocityX(velocity);
-        }
 
-          function  frame(img){
-                this.anims.create({
+                // questa é la parte visiva dello sprite , come l´immagine e i frame che ne compongono il design 
+                this.scene.anims.create({
                 key: 'barile_rotola', // nome dell'animazione
-                frames: this.anims.generateFrameNumbers(img , { start: 0, end: 3 }), // usa il nome dello spritesheet
+                frames: this.scene.anims.generateFrameNumbers(this.spritesheet , { start: 0, end: 3 }), // usa il nome dello spritesheet
                 frameRate: 10,
                 repeat: -1 // -1 = loop infinito
-                });
-            }
-        let barile1 = new Barili(900,150,'Roll_on',-150);
-        physic(barile1);
-        frame('Roll_on');
-        barile1.play(barile1.spritesheet);
-        this.physics.add.collider(barile1, Bars);
+                })
+                //this.sprite.play('barile_rotola');
+                //this.scene.physics.add.collider(this.sprite, Bars);
+            }  
+
+        }
+        for (let i = 0 ; i <4;i++){
+           //let barile[i] = new Barili(this,(900/i),(150 ),'Roll_on',-150);
+            Barili_list.push(new Barili(this,(900/(i+1)),(150 ),'Roll_on',-150));
+        }
+        //########################### Problema del momento 
+        // ho un  problema con il booleano a cui non riesco ad associarlo bene e mi crea problemi per quanto riguarda il suo utilizzo 
+        // forse devo provare a vedere in pygame come ho fatto !!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        for (let i = 0 ; i < Barili_list.length; i ++){
+                    if (Barili_list[i].barileAlive){
+                        Barili_list[i].sprite.play('barile_rotola');
+                        Barili_list[i].scene.physics.add.collider(barileAlive[i].sprite, Bars);
+                    }
+                }
+                
+        //console.log(Barili_list.length);
+        //barile1 = new Barili(this,900,150,'Roll_on',-150);
+        
+        
+        //barile1.play(barile1.spritesheet);
+        //this.physics.add.collider(barile1, Bars);
         //barile1 = this.physics.add.sprite(barile1.x, barile1.y, barile1.spritesheet);
         //barile1.setBounce(0.2);
         //barile1.setCollideWorldBounds(true);
@@ -222,48 +244,64 @@
 
         //    Barili.setVelocityX(- velocity);
         //}
-        console.log(barile1.x);
-        console.log(barile1.y);
-        console.log(barile1.velocity);
-        console.log(barile1.spritesheet);
         
+    
     }
         
 //http://127.0.0.1:3000/PhaserGame/src/prova.html
       
     function update ()
-     {  //if (barileAlive){
-        if (barile1.x <= 20 && barile1.velocity < 0 || (barile1.x > 1185 && barile1.velocity > 0)) {
-            barile1.velocity =   - barile1.velocity;
-            barile1.setVelocityX(barile1.velocity);
-            //console.log("x: " + Barili.x);
-            //console.log("y: " + Barili.y); 
+     { for (let i = 0; i < Barili_list.length;i++){
+        //if (Barili_list[i].barileAlive){
+            if (Barili_list[i].sprite.x <= 20 && Barili_list[i].velocity < 0 || (Barili_list[i].sprite.x > 1185 && Barili_list[i].velocity > 0)) {
+                Barili_list[i].velocity =   - Barili_list[i].velocity;
+                Barili_list[i].sprite.setVelocityX(Barili_list[i].velocity);
+                //console.log("ci siamo ");
             }
+            if ( Barili_list[i].sprite.body.blocked.down ){
+            Barili_list[i].sprite.setVelocityX(Barili_list[i].velocity);
+            }// x 18  y 517
+            if (Barili_list[i].sprite.x == 18 && Barili_list[i].sprite.y == 517){
+                Barili_list[i].barileAlive = false;
+                console.log("ci siamo ");
+                //barile1.x =900;
+                //barile1.y = 150;}
+            //    }
+            }
+            }
+        //console.log("velocity = "+ Barili_list[0].sprite.x);
+        // console.log(Barili_list[1]);
+   }
+        
+       /*  
+           
+       
+    
+       
+       
+       
+       
+       
+       */
             
         //else if {
         //    velocity = - velocity
         //    Barili.setVelocityX(velocity);
         //}   
        
-        if ( barile1.body.blocked.down ){
-            barile1.setVelocityX(barile1.velocity);
-        }// x 18  y 517
-        if (barile1.x == 18 && barile1.y == 517){
-            //barileAlive = false;
-            barile1.x =900;
-            barile1.y = 150;
+        
             //console.log("ci siamo ")
             //Barili.setVelocityX (velocity);
 
         //    velocity == 0;
         //    Barili.setVelocityX(velocity);
-        }
+        
      //}
       
         
        
             
-     }
+     
      
     
     </script>
