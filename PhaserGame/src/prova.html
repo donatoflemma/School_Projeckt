@@ -171,8 +171,8 @@
                 frameRate: 10,
                 repeat: -1 // -1 = loop infinito
                 })
-                //this.sprite.play('barile_rotola');
-                //this.scene.physics.add.collider(this.sprite, Bars);
+                this.sprite.play('barile_rotola');
+                this.scene.physics.add.collider(this.sprite, Bars);
             }  
 
         }
@@ -184,13 +184,15 @@
         // ho un  problema con il booleano a cui non riesco ad associarlo bene e mi crea problemi per quanto riguarda il suo utilizzo 
         // forse devo provare a vedere in pygame come ho fatto !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        for (let i = 0 ; i < Barili_list.length; i ++){
-                    if (Barili_list[i].barileAlive){
+        /*for (let i = 0 ; i < Barili_list.length; i ++){
+                    //if (Barili_list[i].barileAlive){####################anche se l´ho tolto comunque funziona 
+                    if (3<5){
                         Barili_list[i].sprite.play('barile_rotola');
                         Barili_list[i].scene.physics.add.collider(barileAlive[i].sprite, Bars);
+                        console.log("funziona");
                     }
                 }
-                
+                */
         //console.log(Barili_list.length);
         //barile1 = new Barili(this,900,150,'Roll_on',-150);
         
